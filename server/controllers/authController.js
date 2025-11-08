@@ -112,6 +112,8 @@ export const sendVerifyOtp = async (req, res) => {
 
         const user = await userSchema.findById(userId);
 
+        console.log(user.isAccountVerified);
+
         if(user.isAccountVerified) {
             return res.json({ success: false, message: "Account Already verified"});
         }
@@ -120,8 +122,11 @@ export const sendVerifyOtp = async (req, res) => {
 
         user.verifyOtp = otp;
         user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
+        console.log('aqui2')
 
         await user.save();
+
+        console.log('aqui1')
 
         const mailOption = {
             from: process.env.SENDER_EMAIL,
@@ -129,12 +134,13 @@ export const sendVerifyOtp = async (req, res) => {
             subject: 'Account verification OTP',
             text: `Your OTP is ${otp}. Verify your account using this OTP.`
         }
-
+        console.log('aqui3')
         await transporter.sendMail(mailOption);
-
+        console.log('aqui4')
         res.json({ success: true, message: 'Verification OTP Sent on Email'});
 
     } catch (error) {
+                console.log('erro')
         res.json({ success: false, message: error.message});
     }
 }
