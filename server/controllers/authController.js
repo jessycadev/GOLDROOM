@@ -33,7 +33,7 @@ export const register = async (req, res) => {
         })
 
         // Sending welcome email
-        const mailOption = { 
+        const mailOption = {
             from: process.env.SENDER_EMAIL,
             to: email,
             subject: 'Welcome to SERABI',
@@ -45,7 +45,7 @@ export const register = async (req, res) => {
         return res.json({ success: true });
 
     } catch (error) {
-        res.json({ success: false, message: 'teste: '+error.message })
+        res.json({ success: false, message: 'teste: ' + error.message })
     }
 }
 
@@ -96,7 +96,7 @@ export const logout = async (req, res) => {
             sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
         }))
 
-        return res.json({success: true, message: 'Logged Out'})
+        return res.json({ success: true, message: 'Logged Out' })
 
     } catch (error) {
 
@@ -108,25 +108,22 @@ export const logout = async (req, res) => {
 // Send verification OTP to the User's Email
 export const sendVerifyOtp = async (req, res) => {
     try {
-        const {userId} = req.body;
+        const { userId } = req.body;
 
         const user = await userSchema.findById(userId);
 
         console.log(user.isAccountVerified);
 
-        if(user.isAccountVerified) {
-            return res.json({ success: false, message: "Account Already verified"});
+        if (user.isAccountVerified) {
+            return res.json({ success: false, message: "Account Already verified" });
         }
 
         const otp = String(Math.floor(100000 + Math.random() * 900000));
 
         user.verifyOtp = otp;
         user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
-        console.log('aqui2')
 
         await user.save();
-
-        console.log('aqui1')
 
         const mailOption = {
             from: process.env.SENDER_EMAIL,
@@ -134,39 +131,37 @@ export const sendVerifyOtp = async (req, res) => {
             subject: 'Account verification OTP',
             text: `Your OTP is ${otp}. Verify your account using this OTP.`
         }
-        console.log('aqui3')
         await transporter.sendMail(mailOption);
-        console.log('aqui4')
-        res.json({ success: true, message: 'Verification OTP Sent on Email'});
+        res.json({ success: true, message: 'Verification OTP Sent on Email' });
 
     } catch (error) {
-                console.log('erro')
-        res.json({ success: false, message: error.message});
+        console.log('erro')
+        res.json({ success: false, message: error.message });
     }
 }
 
 export const verifyEmail = async (req, res) => {
-    
-    const {userId, otp} = req.body;
 
-    if(!userId || !otp) {
-        return res.json({ success: false, message: 'Missing Details'})
+    const { userId, otp } = req.body;
+
+    if (!userId || !otp) {
+        return res.json({ success: false, message: 'Missing Details' })
     }
 
     try {
 
         const user = await userSchema.findById(userId);
 
-        if(!user) {
-            return res.json({ success: false, message: 'User not found'})
+        if (!user) {
+            return res.json({ success: false, message: 'User not found' })
         }
 
-        if(user.verifyOtp === '' || user.verifyOtp !== otp) {
-            return res.json({success: false, message: 'Invalid OTP'});
+        if (user.verifyOtp === '' || user.verifyOtp !== otp) {
+            return res.json({ success: false, message: 'Invalid OTP' });
         }
 
-        if(user.verifyOtpExpireAt < Date.now()){
-            return res.json({ success: false, message: 'OTP expired'});
+        if (user.verifyOtpExpireAt < Date.now()) {
+            return res.json({ success: false, message: 'OTP expired' });
         }
 
         user.isAccountVerified = true;
@@ -175,11 +170,84 @@ export const verifyEmail = async (req, res) => {
 
         await user.save();
 
-        return res.json({ success: true, message: 'Email verified successfully'});
+        return res.json({ success: true, message: 'Email verified successfully' });
 
     } catch (error) {
-        return res.json({ success: false, message: error.message});
+        return res.json({ success: false, message: error.message });
     }
+}
+
+// Send Password Reset OTP
+export const sendResetOtp = async (req, res) => {
+
+    const { email } = req.body;
+
+    if (!email) {
+        return res.json({ success: false, message: 'Email is required' })
+    }
+
+    try {
+
+        const user = await userSchema.findOne({ email });
+
+        if (!user) {
+            return res.json({ success: true, message: 'User not found!' })
+        }
+
+        //codigo repetido fazer uma funcao
+        const otp = String(Math.floor(100000 + Math.random() * 900000));
+
+        user.verifyOtp = otp;
+        user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
+
+        await user.save();
+
+        const mailOption = {
+            from: process.env.SENDER_EMAIL,
+            to: user.email,
+            subject: 'Password Reset OTP',
+            text: `Your OTP is ${otp}. Verify your account using this OTP.`
+        }
+        await transporter.sendMail(mailOption);
+        res.json({ success: true, message: 'Email Send To You Reset Password' });
+        //final do codigo repetido
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+}
+
+// Reset User Password
+export const resetPassword = async (req, res) => {
+
+    const { email, otp, newPassword } = req.body;
+
+    if (!email || !otp || !newPassword) {
+        return res.json({ success: false, message: 'Email, OTP and New Password are required' });
+    }
+
+    try {
+
+        const user = await userSchema.findOne({ email })
+
+        if (!user) {
+            return res.json({ success: true, message: 'User not found!' })
+        }
+
+        if (user.resetOtpExpireAt < Date.now()) {
+            return res.json({ success: false, message: 'OTP Expired' })
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        user.password = hashedPassword;
+        user.resetOtp = '';
+        user.resetOtpExpireAt = 0;
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+
 }
 
 
