@@ -22,6 +22,7 @@ const userAuth = async (req, res, next) => {
         }
         
         next();
+        console.log('caiu aqui')
 
     } catch (error) {
         return res.json({ success: false, message: error.message});

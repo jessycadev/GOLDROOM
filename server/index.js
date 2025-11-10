@@ -26,6 +26,7 @@ import {
   dadosQuartos
 } from "./data/index.js";
 import router from "./routes/client.js";
+import userRouter from "./routes/userRouter.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 9000;

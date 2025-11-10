@@ -177,6 +177,16 @@ export const verifyEmail = async (req, res) => {
     }
 }
 
+export const isAuthenticated = async (req, res) => {
+    try {
+
+        return res.json({success: true})
+
+    } catch (error) {
+        return res.json({ success: false, message: error.message });
+    }
+}
+
 // Send Password Reset OTP
 export const sendResetOtp = async (req, res) => {
 
@@ -234,6 +244,10 @@ export const resetPassword = async (req, res) => {
             return res.json({ success: true, message: 'User not found!' })
         }
 
+        if (user.resetOtp === "" || user.resetOtp !== otp) {
+            return res.json({ success: false, message: 'OTP Invalid' })
+        }
+
         if (user.resetOtpExpireAt < Date.now()) {
             return res.json({ success: false, message: 'OTP Expired' })
         }
@@ -243,6 +257,10 @@ export const resetPassword = async (req, res) => {
         user.password = hashedPassword;
         user.resetOtp = '';
         user.resetOtpExpireAt = 0;
+
+        await user.save();
+
+        return res.json({ success: true, message: 'Password has been reset successfully' })
 
     } catch (error) {
         return res.json({ success: false, message: error.message });
