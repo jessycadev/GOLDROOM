@@ -1,13 +1,17 @@
 import nodemailer from 'nodemailer';
+//process env nao estava visivel nessa classe precisei adicionar o dotenv.config() para funcioar
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.brevo.com',
-    port: 587,
+    host: process.env.SMTP_SERVER,
+    port: process.env.SMTP_PORT,
     auth: {
-        user: '998243001@smtp-brevo.com',
-        pass: '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',
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
     }
-    
+
 });
 
 export default transporter;

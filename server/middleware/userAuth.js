@@ -10,10 +10,10 @@ const userAuth = async (req, res, next) => {
         return res.json({ success: false, message: 'Not Authorized. Try Login Again'});
     }
 
-    const tokenDecode = jwt.verify(token, 'Secret#text');
+    const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
 
     try {
-        const tokenDecode = jwt.verify(token, 'Secret#text');
+        const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
         
         if(tokenDecode.id) {
             req.body.userId = tokenDecode.id
@@ -22,7 +22,6 @@ const userAuth = async (req, res, next) => {
         }
         
         next();
-        console.log('caiu aqui')
 
     } catch (error) {
         return res.json({ success: false, message: error.message});
