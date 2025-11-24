@@ -20,7 +20,7 @@ rotas.post('/logout', logout );
 rotas.post('/send-verify-otp', userAuth, sendVerifyOtp);
 rotas.post('/verify-account', userAuth, verifyEmail);
 
-rotas.post('/is-auth', userAuth, isAuthenticated);
+rotas.get('/is-auth', userAuth, isAuthenticated);
 
 rotas.post('/send-reset-otp', sendResetOtp);
 rotas.post('/reset-password', resetPassword);
