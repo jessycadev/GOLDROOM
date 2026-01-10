@@ -19,11 +19,12 @@ const login = () => {
     try {
       e.preventDefault();
       axios.defaults.withCredentials = true
-      if (state === 'Sing Up') {
+      if (state === 'Sign Up') {
         const { data } = await axios.post(backendUrl + 'api/auth/register', { name, email, password })
-        if (data.sucess) {
+        if (data.success) {
           setIsLoggedin(true)
           getUserData()
+          toast.success('Usuário Cadastrado com Sucesso')
           navigate('/')
         } else {
           toast.error(data.message)
