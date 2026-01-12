@@ -209,6 +209,8 @@ export const sendResetOtp = async (req, res) => {
         user.verifyOtp = otp;
         user.verifyOtpExpireAt = Date.now() + 15 * 60 * 1000
 
+        console.log('user: '+user)
+
         await user.save();
 
         const mailOption = {
@@ -232,6 +234,8 @@ export const resetPassword = async (req, res) => {
 
     const { email, otp, newPassword } = req.body;
 
+    console.log(req.body)
+
     if (!email || !otp || !newPassword) {
         return res.json({ success: false, message: 'Email, OTP and New Password are required' });
     }
@@ -239,6 +243,7 @@ export const resetPassword = async (req, res) => {
     try {
 
         const user = await userSchema.findOne({ email })
+        console.log('resetOtp: '+user);
 
         if (!user) {
             return res.json({ success: true, message: 'User not found!' })

@@ -114,7 +114,7 @@ const resetPassword = () => {
           <p className='text-center mb-6 text-indigo-300'>Enter the new password below</p>
           <div className='mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C]'>
             <img src={assets.lock_icon} alt="" className='w-3 h-3' />
-            <input type="email" placeholder='Email id' className='bg-transparent outline-none text-white'
+            <input type="password" placeholder='New Password' className='bg-transparent outline-none text-white'
               value={newPassword} onChange={e => setNewPassword(e.target.value)} required />
           </div>
           <button className='w-full py-2.5 bg-gradient-to-r from-indigo-500 to-indigo-900 text-white rounded-full'>Verify email</button>
