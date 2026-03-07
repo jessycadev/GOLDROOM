@@ -44,9 +44,7 @@ const navbar = () => {
     return (
         <header className="bg-gray-200 text-white">
             <div className='flex items-center justify-between px-6 py-4'>
-
                 <img src={assets.logo} alt='' className='w-28 sm:w-32' />
-
                 {userData
                     ?
                     <div className='w-8 h-8 flex justify-center items-center rounded-full bg-black text-white relative group'>

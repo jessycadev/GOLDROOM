@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AppContent } from '../context/appContext'
 import Navbar from '../components/navbar'
 import Header from '../components/header'
-import Layout from '../components/layout'
+import Layout from '../layout'
 
 
 const home = () => {
