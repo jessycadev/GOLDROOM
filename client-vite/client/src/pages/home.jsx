@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
+import { AppContent } from '../context/appContext'
 import Navbar from '../components/navbar'
 import Header from '../components/header'
-import Sidebar from '../components/sidebar'
-import { AppContent } from '../context/appContext'
+import Layout from '../components/layout'
+
 
 const home = () => {
 
@@ -10,11 +11,8 @@ const home = () => {
 
     if (userData) {
         return (
-            <div className='flex flex-col items-center justify-center min-h-screen bg-[url("/bg_img.png")] bg-cover bg-center'>
-                <Navbar />
-                <Header />
-                <Sidebar />
-            </div>
+            // CONTROLE DE LAYOUT DE PAGINA
+            <Layout />
         )
     } else {
         return (
@@ -24,8 +22,6 @@ const home = () => {
             </div>
         )
     }
-
-
 }
 
 export default home

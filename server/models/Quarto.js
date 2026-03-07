@@ -2,11 +2,7 @@ import mongoose from "mongoose";
 
 const QuartoSchema = new mongoose.Schema(
     {
-        idQuarto: Number,
-        status: String,
-        alojamento: String,
-        idUsuario: String,
-        usuario: String,
+        idAlojamento: String,
     },
     { timestamps: true }
 );

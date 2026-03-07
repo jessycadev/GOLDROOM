@@ -7,7 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
-import managementRoutes from "./routes/management.js";
+import cadastroRoutes from "./routes/cadastro.js";
 import salesRoutes from "./routes/sales.js";
 import authRouter from "./routes/authRouter.js";
 import cookieParser from "cookie-parser";
@@ -46,7 +46,7 @@ app.use(cookieParser());
 /* ROUTES */
 app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
-app.use("/management", managementRoutes);
+app.use("/api/quarto", cadastroRoutes);
 app.use("/sales", salesRoutes);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
@@ -68,6 +68,6 @@ mongoose
     // ProductStat.insertMany(dataProductStat);
     // Transaction.insertMany(dataTransaction);
     // User.insertMany(dataUser);
-    // Quarto.insertMany(dadosQuartos);
+    Quarto.insertMany(dadosQuartos);
   })
   .catch((error) => console.log(`${error} did not connect`));

@@ -17525,74 +17525,21 @@ export const dataUser = [
 
 export const dadosQuartos = [
   {
-    _id: "687ba04fb009da9c52fc16ac",
-    idQuarto: "13",
-    idUsuario: "63701cc1f03239b7f700000e",
-    alojamento: "bill",
-    status: "ocupado",
+    idAlojamento: "687ba04fb009da9c52fc16ac",
+    numero: "17",
+
+  },
+];
+
+export const dadosAlojamento = [
+  {
+    descricao: "bill",
   },
   {
-    _id: "687ba04fb009da9c52fc16ad",
-    idQuarto: "14",
-    idUsuario: "63701cc1f03239b7f700000f",
-    alojamento: "bill",
-    status: "ocupado",
+    descricao: "tecnicos",
   },
-  {
-    _id: "687ba04fb009da9c52fc16ae",
-    idQuarto: "15",
-    idUsuario: "63701cc1f03239b7f7000012",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16af",
-    idQuarto: "16",
-    idUsuario: "63701cc1f03239b7f7000013",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16b0",
-    idQuarto: "17",
-    idUsuario: "63701cc1f03239b7f7000011",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "63701cc1f03239b7f7000014",
-    idQuarto: "18",
-    idUsuario: "63701cc1f03239b7f7000011",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16b2",
-    idQuarto: "19",
-    idUsuario: "63701cc1f0323944410002dd",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16b3",
-    idQuarto: "20",
-    idUsuario: "63701cc1f03239b7f7000010",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16b4",
-    idQuarto: "21",
-    idUsuario: "63701cc1f0323944410002de",
-    alojamento: "bill",
-    status: "ocupado",
-  },
-  {
-    _id: "687ba04fb009da9c52fc16b5",
-    idQuarto: "22",
-    idUsuario: "63701cc1f03239b7f700000e",
-    alojamento: "bill",
-    status: "ocupado",
+    {
+    descricao: "supervisores",
   },
 ];
 
