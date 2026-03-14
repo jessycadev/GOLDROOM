@@ -1,9 +1,9 @@
 import express from "express";
-import { Quarto } from "../controllers/Quarto.js";
+import { incluir } from "../controllers/Quarto.js";
 
 const router = express.Router();
 
-router.post("/cadastroQuarto", Quarto);
+router.post("/incluir", incluir);
 
 export default router;
 

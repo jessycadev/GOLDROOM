@@ -1,9 +1,11 @@
 import quartoSchema from "../Schema/quartoSchema.js";
 
-export const Quarto = async (req, res) => {
-    const {idAlojamento} = req.body;
+export const incluir = async (req, res) => {
+    
+    const {nome, numero, leito, local, descricao} = req.body;
+    
     try {
-        const quarto = new quartoSchema({idAlojamento})
+        const quarto = new quartoSchema({nome, numero, leito, local, descricao})
         await quarto.save();
         return res.json({ success: true, quarto });
     } catch (error) {

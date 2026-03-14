@@ -17525,9 +17525,11 @@ export const dataUser = [
 
 export const dadosQuartos = [
   {
-    idAlojamento: "687ba04fb009da9c52fc16ac",
-    numero: "17",
-
+    nome: "Quarto 17 JESSYCA BORGES",
+    leitos: 1,
+    local: "Palito",
+    descricao: "descricao teste", 
+    numero: 17
   },
 ];
 
